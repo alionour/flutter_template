@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SkillsView extends StatefulWidget {
-  const SkillsView({Key? key}) : super(key: key);
-  static const String routeName = '/skills';
+class EditProfile extends StatefulWidget {
+  const EditProfile({Key? key}) : super(key: key);
+  static const String routeName = '/edit_profile';
   @override
-  State<SkillsView> createState() => _SkillsViewState();
+  State<EditProfile> createState() => _EditProfileState();
 }
 
-class _SkillsViewState extends State<SkillsView> {
+class _EditProfileState extends State<EditProfile> {
   final List<String> skills = [
     "Dart",
     "Nodejs",
@@ -43,8 +43,8 @@ class _SkillsViewState extends State<SkillsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white60,
-        title: const Text('Skills'),
+        backgroundColor: Colors.green[400],
+        title: const Text('Edit Profile'),
       ),
       body: Column(
         children: [

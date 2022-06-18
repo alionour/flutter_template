@@ -1,6 +1,12 @@
 import 'package:contest_1/src/app/navigation/navigator.dart';
+import 'package:contest_1/src/profile/widgets/certificate_card.dart';
+import 'package:contest_1/src/profile/widgets/contact_item_card.dart';
+import 'package:contest_1/src/profile/widgets/experience_card.dart';
+import 'package:contest_1/src/profile/widgets/license_card.dart';
+import 'package:contest_1/src/profile/widgets/review_card.dart';
 import 'package:contest_1/src/skills/view/skills_view.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -24,7 +30,7 @@ class _ProfileViewState extends State<ProfileView> {
   ]..sort(
       ((a, b) => a.length.compareTo(b.length)),
     );
-
+  var isProfessionalAccount = false;
   @override
   Widget build(BuildContext context) {
     final containerHieght = MediaQuery.of(context).size.height * 0.3;
@@ -58,42 +64,61 @@ class _ProfileViewState extends State<ProfileView> {
                           top: containerHieght - (imageSize / 2),
                           left: (MediaQuery.of(context).size.width * 0.5) -
                               (imageSize / 2),
-                          child: Container(
-                            height: imageSize,
-                            width: imageSize,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image:
-                                      Image.asset('assets/images/profile.jpeg')
+                          child: Stack(
+                            children: [
+                              Container(
+                                height: imageSize,
+                                width: imageSize,
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: Image.asset(
+                                              'assets/images/profile.jpeg')
                                           .image,
-                                  fit: BoxFit.cover),
-                            ),
+                                      fit: BoxFit.cover),
+                                ),
+                              ),
+                              Positioned(
+                                  child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                ),
+                              )),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                    const Text(
-                      'Jasmine Moore',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.verified_rounded,
+                          color: Colors.blueAccent,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Jasmine Moore',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Icon(
-                              Icons.work,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
                             Text(
                               'Software Engineer',
                               textAlign: TextAlign.center,
@@ -103,16 +128,12 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Icon(
-                              Icons.location_on,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
                             Text(
                               'London, UK',
                               textAlign: TextAlign.center,
@@ -145,7 +166,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     text: '250',
                                     children: [
                                       TextSpan(
-                                        text: '\npoints',
+                                        text: '\nJobs Completed',
                                       ),
                                     ]),
                                 textAlign: TextAlign.center,
@@ -165,7 +186,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     text: '352650',
                                     children: [
                                       TextSpan(
-                                        text: '\nviews',
+                                        text: '\nViews',
                                       ),
                                     ]),
                                 textAlign: TextAlign.center,
@@ -178,6 +199,35 @@ class _ProfileViewState extends State<ProfileView> {
                   ],
                 ),
                 const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      const Tooltip(
+                        message:
+                            '\nEnable professional profile when you are ready to recieving contracts.\n',
+                        triggerMode: TooltipTriggerMode.tap,
+                        child: Icon(
+                          Icons.info_outline_rounded,
+                        ),
+                      ),
+                      Expanded(
+                        child: SwitchListTile.adaptive(
+                            title: const Text('Business Account'),
+                            value: isProfessionalAccount,
+                            activeColor: Colors.green,
+                            onChanged: (v) {
+                              setState(() {
+                                isProfessionalAccount = v;
+                              });
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
                   height: 15,
                 ),
                 Padding(
@@ -188,8 +238,15 @@ class _ProfileViewState extends State<ProfileView> {
                       Image.network(
                         'https://img.icons8.com/color/48/undefined/whatsapp--v5.png',
                       ),
-                      Image.network(
-                          'https://img.icons8.com/fluency/48/undefined/linkedin-circled.png'),
+                      InkWell(
+                        onTap: () {
+                          launchUrl(
+                            Uri.parse('https://www.linkedin.com/in/alionour'),
+                          );
+                        },
+                        child: Image.network(
+                            'https://img.icons8.com/fluency/48/undefined/linkedin-circled.png'),
+                      ),
                       Image.network(
                           'https://img.icons8.com/color/48/undefined/twitter--v1.png'),
                       Image.network(
@@ -199,63 +256,106 @@ class _ProfileViewState extends State<ProfileView> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 2.0, right: 2.0),
+                  decoration: BoxDecoration(
+                    color: Colors.green[50],
+                  ),
+                  child: Column(
                     children: [
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.sailing_rounded,
-                            color: Colors.green,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Skills',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: IconButton(
-                            onPressed: () {
-                              NavigationService.router
-                                  .push(SkillsView.routeName);
-                            },
-                            icon: const Icon(
-                              Icons.edit_attributes_rounded,
+                      ListTile(
+                        title: const Text(
+                          'Contact Info',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               color: Colors.green,
-                              size: 50,
-                            )),
-                      )
+                              fontSize: 20),
+                        ),
+                        trailing: GestureDetector(
+                          child: const Icon(
+                            Icons.add_box_outlined,
+                            color: Colors.green,
+                            size: 30,
+                          ),
+                          onTap: () {
+                            // navigate to add skill page
+                            NavigationService.router
+                                .push(EditProfile.routeName);
+                          },
+                        ),
+                      ),
+                      const Divider(
+                        height: 3,
+                      ),
+                      ...contactInfo
+                          .map((e) => Column(
+                                children: [
+                                  e,
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                ],
+                              ))
+                          .toList(),
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  //outer spacing
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Wrap(
-                    spacing: 8, // space between items
-                    runSpacing: 8,
-                    children: skills
-                        .map((e) => Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.greenAccent,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(e),
-                            ))
-                        .toList(),
+                Container(
+                  margin: const EdgeInsets.only(left: 2.0, right: 2.0),
+                  decoration: BoxDecoration(
+                    color: Colors.green[50],
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: const Text(
+                          'Skills',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                              fontSize: 20),
+                        ),
+                        trailing: GestureDetector(
+                          child: const Icon(
+                            Icons.add_box_outlined,
+                            color: Colors.green,
+                            size: 30,
+                          ),
+                          onTap: () {
+                            // navigate to add skill page
+                            NavigationService.router
+                                .push(EditProfile.routeName);
+                          },
+                        ),
+                      ),
+                      const Divider(
+                        height: 3,
+                      ),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 8, // space between items
+                        runSpacing: 8,
+                        children: skills
+                            .map((e) => Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.greenAccent,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(e),
+                                ))
+                            .toList(),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      )
+                    ],
                   ),
                 ),
               ],
@@ -263,72 +363,213 @@ class _ProfileViewState extends State<ProfileView> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.contact_mail_rounded,
-                    color: Colors.green,
+            Container(
+              margin: const EdgeInsets.only(left: 2.0, right: 2.0),
+              decoration: BoxDecoration(
+                color: Colors.green[50],
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: const Text(
+                      'Certifications',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                          fontSize: 20),
+                    ),
+                    trailing: GestureDetector(
+                      child: const Icon(
+                        Icons.add_box_outlined,
+                        color: Colors.green,
+                        size: 30,
+                      ),
+                      onTap: () {
+                        // navigate to add skill page
+                        NavigationService.router.push(EditProfile.routeName);
+                      },
+                    ),
                   ),
-                  SizedBox(
-                    width: 10,
+                  const Divider(
+                    height: 3,
                   ),
-                  Text(
-                    'Contact Imformation',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.green),
-                  ),
+                  ...certificates
+                      .map((e) => Column(
+                            children: const [
+                              CertificationCard(),
+                              SizedBox(
+                                height: 2,
+                              ),
+                            ],
+                          ))
+                      .toList(),
                 ],
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 50.0),
+            Container(
+              margin: const EdgeInsets.only(left: 2.0, right: 2.0),
+              decoration: BoxDecoration(
+                color: Colors.green[50],
+              ),
               child: Column(
                 children: [
-                  Row(
-                    children: const [
-                      Icon(Icons.phone),
-                      SizedBox(
-                        width: 10,
+                  ListTile(
+                    title: const Text(
+                      'Licenses',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                          fontSize: 20),
+                    ),
+                    trailing: GestureDetector(
+                      child: const Icon(
+                        Icons.add_box_outlined,
+                        color: Colors.green,
+                        size: 30,
                       ),
-                      Text(
-                        '+44 775 888 8888',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
+                      onTap: () {
+                        // navigate to add skill page
+                        NavigationService.router.push(EditProfile.routeName);
+                      },
+                    ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  const Divider(
+                    height: 3,
                   ),
-                  Row(
-                    children: const [
-                      Icon(Icons.email_rounded),
-                      SizedBox(
-                        width: 10,
+                  ...licenses
+                      .map((e) => Column(
+                            children: const [
+                              LicenseCard(),
+                              SizedBox(
+                                height: 2,
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 2.0, right: 2.0),
+              decoration: BoxDecoration(
+                color: Colors.green[50],
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: const Text(
+                      'Experience',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                          fontSize: 20),
+                    ),
+                    trailing: GestureDetector(
+                      child: const Icon(
+                        Icons.add_box_outlined,
+                        color: Colors.green,
+                        size: 30,
                       ),
-                      Text(
-                        'alionour22@gmail.com',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  )
+                      onTap: () {
+                        // navigate to add skill page
+                        NavigationService.router.push(EditProfile.routeName);
+                      },
+                    ),
+                  ),
+                  const Divider(
+                    height: 3,
+                  ),
+                  ...experience
+                      .map((e) => Column(
+                            children: [
+                              e,
+                              const SizedBox(
+                                height: 2,
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 2.0, right: 2.0),
+              decoration: BoxDecoration(
+                color: Colors.green[50],
+              ),
+              child: Column(
+                children: [
+                  const ListTile(
+                    title: Text(
+                      'Reviews',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                          fontSize: 20),
+                    ),
+                  ),
+                  const Divider(
+                    height: 3,
+                  ),
+                  ...reviews
+                      .map((e) => Column(
+                            children: [
+                              e,
+                              const SizedBox(
+                                height: 2,
+                              ),
+                            ],
+                          ))
+                      .toList(),
                 ],
               ),
             ),
             const SizedBox(
               height: kBottomNavigationBarHeight,
-            )
+            ),
           ]),
         ),
       ],
     );
   }
+
+  final licenses = [
+    const LicenseCard(),
+    const LicenseCard(),
+    const LicenseCard(),
+  ];
+  final experience = [
+    const ExperienceCard(),
+  ];
+  final reviews = [
+    const ReviewCard(
+        numberOfStars: 5, text: 'He has all tools required for the job.'),
+    const ReviewCard(
+        numberOfStars: 2, text: 'He does not follow safety procedures.'),
+    const ReviewCard(numberOfStars: 3, text: 'Good'),
+  ];
+  final certificates = [
+    const CertificationCard(),
+    const CertificationCard(),
+    const CertificationCard(),
+  ];
+  final contactInfo = [
+    const ContactItemCard(
+      iconData: Icons.phone,
+      text: '+44 775 888 8888',
+    ),
+    const ContactItemCard(
+      iconData: Icons.email_rounded,
+      text: 'alionour22@gmail.com',
+    ),
+  ];
 }

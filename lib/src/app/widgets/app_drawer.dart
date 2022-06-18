@@ -18,74 +18,104 @@ class _AppDrawerState extends State<AppDrawer> {
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
       ),
-      child: ListView(
-        children: <Widget>[
-          const UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: Color(0xFF75787d),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF75787d),
+              ),
+              accountEmail: Text('jasminemoore21@gmail.com'),
+              accountName: Text('Jasmine Moore'),
+              currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  foregroundImage: AssetImage('assets/images/profile.jpeg')),
+              // child: Image.asset('assets/images/profile.jpeg')),
             ),
-            accountEmail: Text('jasminemoore21@gmail.com'),
-            accountName: Text('Jasmine Moore'),
-            currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                foregroundImage: AssetImage('assets/images/profile.jpeg')),
-            // child: Image.asset('assets/images/profile.jpeg')),
-          ),
-          ListTile(
-            title: const Text(
-              'Contact Imformation',
-              style: TextStyle(
-                color: Colors.white,
+            ListTile(
+              title: const Text(
+                'Contact Imformation',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text(
+                'Professional',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text(
+                'Bids',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text(
+                'Jobs',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text(
+                'Tools',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text(
+                'Teams',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {},
+            ),
+            const Expanded(
+              child: SizedBox(
+                height: 20,
               ),
             ),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text(
-              'Professional',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+            const Text('Notifications',
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            const SizedBox(
+              height: 10,
             ),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text(
-              'Bids',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+            const Text('Settings',
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            const SizedBox(
+              height: 10,
             ),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text(
-              'Jobs',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+            const Text('Rate Us',
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            const SizedBox(
+              height: 20,
             ),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text(
-              'Tools',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text(
-              'Teams',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            onTap: () {},
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

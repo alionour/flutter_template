@@ -23,9 +23,9 @@ class NavigationService {
               builder: (context, state) => const ProfileView(),
             ),
             GoRoute(
-              path: SkillsView.routeName.replaceAll('/', ''),
-              name: SkillsView.routeName,
-              builder: (context, state) => const SkillsView(),
+              path: EditProfile.routeName.replaceAll('/', ''),
+              name: EditProfile.routeName,
+              builder: (context, state) => const EditProfile(),
             ),
           ]),
     ],
