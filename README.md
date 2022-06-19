@@ -1,12 +1,19 @@
 # Flutter Template
 
-![GIF](screenshots/../scrrenshots/small/app.gif)
+![GIF](screenshots//small/app.gif)
 
 ## Components
 - BottomNavigator
 - Drawer
 - Profile Screen
 
+
+## Screenshots
+![alt](screenshots/large/001.png)
+![alt](screenshots/large/002.png)
+![alt](screenshots/large/003.png)
+![alt](screenshots/large/004.png)
+![alt](screenshots/large/005.png)
 ## Getting Started
 
 A few resources to get you started if this is your first Flutter project:
