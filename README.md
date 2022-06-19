@@ -1,10 +1,13 @@
-# contest_1
+# Flutter Template
 
-A new Flutter project.
+![GIF](screenshots/../scrrenshots/small/app.gif)
+
+## Components
+- BottomNavigator
+- Drawer
+- Profile Screen
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
